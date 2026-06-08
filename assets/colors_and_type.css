@@ -1,0 +1,161 @@
+/* =========================================================================
+   NOOIT MEER SLAP — Design tokens
+   Source of truth for color + type. Import this anywhere.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+:root {
+  /* ---- Palette --------------------------------------------------------- */
+  --sas-blue:      #0098E4;   /* primary background */
+  --sas-blue-deep: #0078B5;   /* rare; pressed states, overlap */
+  --pil-geel:      #FFED00;   /* the one accent — the pill */
+  --pil-geel-deep: #E5D200;   /* pressed yellow */
+  --wit:           #FFFFFF;
+  --inkt:          #0B0B0B;   /* text on yellow / on paper */
+  --papier:        #F4EFE6;   /* warm off-white for editorial */
+
+  /* Semantic */
+  --bg:            var(--sas-blue);
+  --fg:            var(--wit);
+  --fg-muted:      rgba(255,255,255,0.78);
+  --accent:        var(--pil-geel);
+  --on-accent:     var(--inkt);
+
+  /* ---- Type ------------------------------------------------------------ */
+  --font-display:  'Archivo Black', 'Helvetica Neue', Arial Black, sans-serif;
+  --font-body:     'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Size scale (designed at 1920px-wide canvas; scale down on web) */
+  --t-display:     120px;
+  --t-h1:          72px;
+  --t-h2:          48px;
+  --t-h3:          32px;
+  --t-quote:       40px;
+  --t-lead:        24px;
+  --t-body:        18px;
+  --t-small:       14px;
+  --t-tiny:        12px;
+  --t-vertical:    24px;
+
+  /* Leading & tracking */
+  --lh-display:    0.95;
+  --lh-tight:      1.02;
+  --lh-body:       1.5;
+  --tr-display:    -0.01em;
+  --tr-label:      0.06em;
+
+  /* ---- Spacing (8px baseline) ----------------------------------------- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 32px;
+  --s-6: 48px;
+  --s-7: 80px;
+  --s-8: 128px;
+
+  /* ---- Radii ---------------------------------------------------------- */
+  --r-none: 0;
+  --r-pill: 9999px;
+
+  /* ---- Motion --------------------------------------------------------- */
+  --ease-snap:  cubic-bezier(0.2, 0, 0, 1);
+  --ease-swing: cubic-bezier(.2, .9, .3, 1);
+  --t-fast:     120ms;
+  --t-base:     240ms;
+  --t-swing:    600ms;
+}
+
+/* =========================================================================
+   Element base styles — opt in via `class="nms"` on a root container.
+   ========================================================================= */
+.nms,
+.nms * {
+  box-sizing: border-box;
+}
+.nms {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nms h1, .nms .h1,
+.nms h2, .nms .h2,
+.nms h3, .nms .h3,
+.nms .display, .nms .quote {
+  font-family: var(--font-display);
+  font-weight: 400;             /* Archivo Black is intrinsically heavy */
+  text-transform: uppercase;
+  letter-spacing: var(--tr-display);
+  line-height: var(--lh-display);
+  margin: 0;
+}
+
+.nms .display { font-size: var(--t-display); }
+.nms h1, .nms .h1 { font-size: var(--t-h1); }
+.nms h2, .nms .h2 { font-size: var(--t-h2); line-height: var(--lh-tight); }
+.nms h3, .nms .h3 { font-size: var(--t-h3); line-height: var(--lh-tight); }
+.nms .quote {
+  font-size: var(--t-quote);
+  color: var(--pil-geel);
+  line-height: var(--lh-tight);
+}
+.nms .lead     { font-size: var(--t-lead); font-weight: 500; line-height: 1.35; }
+.nms p         { font-size: var(--t-body); margin: 0 0 var(--s-3); }
+.nms .small    { font-size: var(--t-small); letter-spacing: var(--tr-label); text-transform: uppercase; }
+.nms em, .nms i { font-style: italic; }
+
+/* Vertical brand lockup */
+.nms .vertical {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: var(--t-vertical);
+  color: var(--pil-geel);
+}
+
+/* The pill shape — drop-in component */
+.nms .pill {
+  display: inline-block;
+  background: var(--pil-geel);
+  border-radius: var(--r-pill);
+  width: 280px;
+  height: 720px;
+}
+.nms .pill--horizontal {
+  width: 720px;
+  height: 280px;
+}
+
+/* Button — pill or rect */
+.nms .btn {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: var(--t-body);
+  letter-spacing: 0.02em;
+  background: var(--pil-geel);
+  color: var(--inkt);
+  border: 0;
+  padding: 14px 28px 12px;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease-snap),
+              color var(--t-fast) var(--ease-snap),
+              transform var(--t-fast) var(--ease-snap);
+}
+.nms .btn--pill { border-radius: var(--r-pill); padding: 16px 36px 14px; }
+.nms .btn:hover { background: var(--wit); color: var(--inkt); }
+.nms .btn:active { transform: translateY(1px) scale(0.98); }
+
+.nms .btn--ghost {
+  background: transparent;
+  color: var(--wit);
+  box-shadow: inset 0 0 0 2px var(--wit);
+}
+.nms .btn--ghost:hover { background: var(--wit); color: var(--sas-blue); }

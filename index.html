@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nooit Meer Slap — Sas Steysiger</title>
+<link rel="stylesheet" href="assets/colors_and_type.css">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--sas-blue);
+    color: var(--wit);
+    font-family: var(--font-body);
+    font-size: var(--t-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ---------- shared type ---------- */
+  .display {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 0.92;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pil-geel);
+    margin: 0 0 22px;
+  }
+  .eyebrow--ink { color: var(--sas-blue); }
+  h2.section-title {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: clamp(34px, 5vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -0.012em;
+    margin: 0 0 28px;
+  }
+  .lead { font-size: clamp(18px, 1.7vw, 25px); font-weight: 500; line-height: 1.4; margin: 0; }
+  p { margin: 0 0 16px; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    border: 0;
+    padding: 18px 32px 16px;
+    cursor: pointer;
+    border-radius: var(--r-pill);
+    transition: background var(--t-fast) var(--ease-snap),
+                color var(--t-fast) var(--ease-snap),
+                transform var(--t-fast) var(--ease-snap);
+  }
+  .btn--yellow { background: var(--pil-geel); color: var(--inkt); }
+  .btn--yellow:hover { background: var(--wit); color: var(--sas-blue); }
+  .btn--ghost { background: transparent; color: var(--wit); box-shadow: inset 0 0 0 2px var(--wit); }
+  .btn--ghost:hover { background: var(--wit); color: var(--sas-blue); }
+  .btn--ink { background: var(--inkt); color: var(--wit); }
+  .btn--ink:hover { background: var(--sas-blue); color: var(--wit); }
+  .btn:active { transform: translateY(1px) scale(0.985); }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 16px clamp(20px, 4vw, 56px);
+    transition: background var(--t-base) var(--ease-snap), box-shadow var(--t-base) var(--ease-snap);
+  }
+  .nav.scrolled { background: var(--sas-blue); box-shadow: 0 1px 0 rgba(255,255,255,0.12); }
+  .brandmark {
+    display: inline-flex; align-items: center; gap: 11px;
+    font-family: var(--font-display);
+    font-size: 17px; text-transform: uppercase; letter-spacing: -0.01em;
+  }
+  .brandmark__pill {
+    width: 15px; height: 30px; background: var(--pil-geel);
+    border-radius: var(--r-pill); transform: rotate(20deg);
+  }
+  .nav__links {
+    display: flex; gap: 26px; list-style: none; margin: 0 auto 0 18px; padding: 0;
+    font-family: var(--font-display); font-size: 13px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .nav__links a { padding: 4px 0; transition: color var(--t-fast); }
+  .nav__links a:hover { color: var(--pil-geel); }
+  .nav__cta { padding: 12px 22px 10px; font-size: 13px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px clamp(20px, 4vw, 56px) 80px;
+  }
+  .hero__rail {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 52px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); text-transform: uppercase;
+    letter-spacing: 0.04em; font-size: 22px; color: var(--pil-geel);
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    pointer-events: none;
+  }
+  .hero__grid {
+    width: 100%; max-width: 1240px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    align-items: center; gap: clamp(32px, 5vw, 80px);
+  }
+  .hero__copy { max-width: 640px; }
+  .hero h1 {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: clamp(64px, 12vw, 168px); line-height: 0.86;
+    letter-spacing: -0.02em; margin: 0 0 26px;
+  }
+  .hero__sub { font-size: clamp(19px, 2vw, 28px); font-weight: 600; line-height: 1.25; margin: 0 0 36px; max-width: 18ch; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .hero__price {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: 14px; letter-spacing: 0.05em; opacity: 0.92;
+  }
+  .hero__price b { color: var(--pil-geel); }
+  .hero__meta {
+    margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px 14px;
+    font-family: var(--font-display); font-size: 11.5px;
+    letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.82;
+  }
+
+  /* hero visual: book + pill */
+  .hero__visual {
+    position: relative; display: flex; justify-content: center; align-items: center;
+    min-height: 540px;
+  }
+  .hero__pill {
+    position: absolute;
+    width: 360px; height: 660px;
+    background: var(--pil-geel); border-radius: var(--r-pill);
+    right: -8%; top: 50%;
+    transform: translateY(-50%) rotate(14deg);
+    z-index: 0;
+  }
+  .hero__book {
+    position: relative; z-index: 1;
+    width: clamp(240px, 26vw, 360px);
+    transform: rotate(-3deg);
+    filter: drop-shadow(0 30px 50px rgba(0,60,95,0.35));
+  }
+
+  /* ---------- trust strip ---------- */
+  .trust {
+    background: var(--inkt);
+    padding: 22px clamp(20px, 4vw, 56px);
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    gap: 14px 36px;
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: 14px; letter-spacing: 0.06em;
+  }
+  .trust span { opacity: 0.55; }
+  .trust b { color: var(--pil-geel); }
+
+  /* ---------- generic section ---------- */
+  section.band { padding: clamp(72px, 10vw, 130px) clamp(20px, 4vw, 56px); position: relative; overflow: hidden; }
+  .band--blue { background: var(--sas-blue); color: var(--wit); }
+  .band--paper { background: var(--papier); color: var(--inkt); }
+  .band--white { background: var(--wit); color: var(--inkt); }
+  .band--ink { background: var(--inkt); color: var(--wit); }
+  .wrap { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
+  .wrap--narrow { max-width: 920px; }
+
+  /* ---------- pull quote ---------- */
+  .pullquote { text-align: left; }
+  .pullquote p {
+    font-family: var(--font-display); text-transform: uppercase;
+    color: var(--pil-geel);
+    font-size: clamp(30px, 4.6vw, 66px); line-height: 1.0;
+    letter-spacing: -0.012em; margin: 0;
+    max-width: 22ch;
+  }
+  .pullquote .attr {
+    margin-top: 30px; font-family: var(--font-display);
+    font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wit);
+  }
+
+  /* ---------- het boek (signal / what it is) ---------- */
+  .boek-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .boek-copy p { max-width: 52ch; font-size: 18px; }
+  .isnt-isit { display: grid; gap: 16px; margin-top: 8px; }
+  .ii-card {
+    background: var(--wit); padding: 26px 28px; border-left: 6px solid var(--sas-blue);
+  }
+  .ii-card.no { border-left-color: var(--inkt); opacity: 0.86; }
+  .ii-card .ii-label {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: 12px; letter-spacing: 0.08em; color: var(--sas-blue); margin: 0 0 6px;
+  }
+  .ii-card.no .ii-label { color: var(--inkt); }
+  .ii-card p { margin: 0; font-size: 17px; font-weight: 500; }
+
+  /* ---------- voor wie ---------- */
+  .voorwie-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+  .voorwie-list li {
+    display: flex; gap: 18px; align-items: baseline;
+    padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.16);
+    font-size: clamp(18px, 2vw, 24px); font-weight: 500;
+  }
+  .voorwie-list li:last-child { border-bottom: 0; }
+  .voorwie-list .vi-pill {
+    flex: none; width: 14px; height: 30px; background: var(--pil-geel);
+    border-radius: var(--r-pill); transform: rotate(18deg); margin-top: 2px;
+  }
+
+  /* ---------- wat je leert ---------- */
+  .leert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 56px; }
+  .leert-card {
+    background: var(--papier); color: var(--inkt);
+    padding: 32px 26px; min-height: 280px; display: flex; flex-direction: column;
+    transition: transform var(--t-base) var(--ease-snap), background var(--t-base);
+  }
+  .leert-card:hover { transform: translateY(-6px); }
+  .leert-num {
+    font-family: var(--font-display); font-size: 13px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--sas-blue); margin-bottom: auto;
+  }
+  .leert-card h3 {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: 22px; line-height: 1.02; letter-spacing: -0.01em; margin: 26px 0 12px;
+  }
+  .leert-card p { margin: 0; font-size: 15px; line-height: 1.5; color: #2c2c2c; }
+
+  /* ---------- over sas ---------- */
+  .sas-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 5vw, 76px); align-items: center; }
+  .sas-photo { position: relative; }
+  .sas-photo img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 22%; }
+  .sas-photo .photo-cred {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 10px 14px; font-size: 11px; letter-spacing: 0.04em;
+    background: linear-gradient(transparent, rgba(0,0,0,0.45));
+    color: rgba(255,255,255,0.9);
+  }
+  .sas-copy .callout {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: clamp(22px, 2.6vw, 34px); line-height: 1.04; letter-spacing: -0.01em;
+    color: var(--sas-blue); margin: 30px 0 0;
+  }
+  .sas-copy p { max-width: 52ch; }
+
+  /* ---------- bestellen ---------- */
+  .bestel { position: relative; }
+  .bestel__pill {
+    position: absolute; right: -90px; top: -70px;
+    width: 230px; height: 560px; background: var(--pil-geel);
+    border-radius: var(--r-pill); transform: rotate(-10deg); z-index: 0;
+  }
+  /* formats: paperback + e-book */
+  .formats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; max-width: 760px; }
+  .format-card {
+    background: var(--wit); color: var(--inkt); padding: 30px 32px;
+    display: flex; flex-direction: column; gap: 8px; position: relative;
+  }
+  .format-card--ebook { background: var(--pil-geel); }
+  .fmt-label { font-family: var(--font-display); text-transform: uppercase; font-size: 14px; letter-spacing: 0.06em; color: var(--sas-blue); }
+  .format-card--ebook .fmt-label { color: var(--inkt); }
+  .fmt-price { font-family: var(--font-display); font-size: clamp(36px, 4.4vw, 52px); line-height: 1; letter-spacing: -0.01em; }
+  .fmt-note { font-size: 15px; line-height: 1.4; color: #3a3a3a; margin-top: 2px; }
+  .bestel-sub {
+    margin: 52px 0 18px; font-family: var(--font-display); text-transform: uppercase;
+    font-size: 13px; letter-spacing: 0.12em; color: var(--pil-geel);
+  }
+  .retailers {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .retailers li {
+    background: rgba(255,255,255,0.10); padding: 14px 24px 12px;
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: 19px; letter-spacing: 0.01em;
+  }
+  .retailers li.is-link { padding: 0; background: transparent; }
+  .retailers li.is-link a {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.10); padding: 14px 24px 12px;
+    transition: background var(--t-fast) var(--ease-snap),
+                color var(--t-fast) var(--ease-snap),
+                transform var(--t-fast) var(--ease-snap);
+  }
+  .retailers li.is-link a:hover {
+    background: var(--pil-geel); color: var(--inkt);
+  }
+  .retailers li.is-link a:active { transform: translateY(1px) scale(0.985); }
+  .retailers li.is-link a::after {
+    content: "\2197"; font-size: 14px; opacity: 0.65;
+  }
+  .bestel__meta {
+    display: flex; flex-wrap: wrap; gap: 44px; margin-top: 48px;
+    font-family: var(--font-display); text-transform: uppercase;
+  }
+  .bestel__meta .lbl { display: block; font-size: 11px; letter-spacing: 0.12em; color: var(--pil-geel); margin-bottom: 8px; }
+  .bestel__meta b { font-size: 24px; }
+
+  /* ---------- pers & media ---------- */
+  .pers { position: relative; }
+  .pers__pill {
+    position: absolute; right: -70px; top: -60px;
+    width: 200px; height: 460px; background: var(--sas-blue);
+    border-radius: var(--r-pill); transform: rotate(12deg); z-index: 0;
+  }
+  .pers > * { position: relative; z-index: 1; }
+  .pers .lead { margin-bottom: 36px; }
+  .pers__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 24px; }
+  .pers__mail {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: 16px; letter-spacing: 0.03em; color: var(--pil-geel);
+    border-bottom: 2px solid transparent; padding-bottom: 2px;
+    transition: border-color var(--t-fast) var(--ease-snap);
+  }
+  .pers__mail:hover { border-color: var(--pil-geel); }
+  @media (max-width: 980px) { .pers__pill { display: none; } }
+
+  /* ---------- nieuwsbrief ---------- */
+  .signup__form { display: flex; gap: 12px; margin-top: 30px; max-width: 540px; flex-wrap: wrap; }
+  .signup__form input {
+    flex: 1; min-width: 220px; background: transparent; border: 0;
+    border-bottom: 2px solid rgba(255,255,255,0.5); color: var(--wit);
+    font-family: var(--font-body); font-size: 17px; padding: 12px 4px; outline: none;
+    transition: border-color var(--t-fast);
+  }
+  .signup__form input::placeholder { color: rgba(255,255,255,0.5); }
+  .signup__form input:focus { border-color: var(--pil-geel); }
+  .signup__done {
+    margin-top: 28px; font-family: var(--font-display); text-transform: uppercase;
+    color: var(--pil-geel); font-size: 26px; letter-spacing: -0.01em;
+  }
+  .signup small { display: block; margin-top: 16px; font-size: 13px; opacity: 0.7; }
+
+  /* ---------- faq ---------- */
+  .faq { margin-top: 48px; border-top: 1px solid rgba(0,0,0,0.12); }
+  .faq details { border-bottom: 1px solid rgba(0,0,0,0.12); }
+  .faq summary {
+    list-style: none; cursor: pointer; padding: 26px 48px 26px 0; position: relative;
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: clamp(18px, 2vw, 24px); letter-spacing: -0.005em; line-height: 1.1;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: ""; position: absolute; right: 6px; top: 50%; width: 18px; height: 18px;
+    background: var(--sas-blue); border-radius: var(--r-pill);
+    transform: translateY(-50%); transition: transform var(--t-base) var(--ease-snap);
+  }
+  .faq details[open] summary::after { transform: translateY(-50%) rotate(0deg) scale(1.15); background: var(--pil-geel); }
+  .faq details[open] summary { color: var(--sas-blue); }
+  .faq .faq-body { padding: 0 48px 28px 0; max-width: 64ch; }
+  .faq .faq-body p { font-size: 17px; margin: 0; }
+
+  /* ---------- footer ---------- */
+  .footer {
+    background: var(--sas-blue); color: var(--wit);
+    padding: 72px clamp(20px, 4vw, 56px) 48px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+  }
+  .footer__col h4 {
+    font-family: var(--font-display); text-transform: uppercase;
+    font-size: 12px; letter-spacing: 0.08em; color: var(--pil-geel); margin: 0 0 14px;
+  }
+  .footer__col a { display: block; padding: 5px 0; font-size: 15px; transition: color var(--t-fast); }
+  .footer__col a:hover { color: var(--pil-geel); }
+  .footer__col p { font-size: 14px; opacity: 0.86; max-width: 32ch; }
+  .footer__col--logo img { width: 190px; }
+  .footer__bottom {
+    grid-column: 1 / -1;
+    max-width: 1180px; margin: 48px auto 0; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-size: 12px; letter-spacing: 0.04em; opacity: 0.8;
+  }
+
+  /* ---------- reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease-swing), transform 0.7s var(--ease-swing); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* pill swing-in */
+  @keyframes pillSwing {
+    from { opacity: 0; transform: translateY(-50%) rotate(40deg) translateX(80px); }
+    to   { opacity: 1; transform: translateY(-50%) rotate(14deg) translateX(0); }
+  }
+  @keyframes bookIn {
+    from { opacity: 0; transform: rotate(-12deg) translateY(40px); }
+    to   { opacity: 1; transform: rotate(-3deg) translateY(0); }
+  }
+  .hero__pill { animation: pillSwing 0.9s var(--ease-swing) both 0.15s; }
+  .hero__book { animation: bookIn 0.9s var(--ease-swing) both 0.35s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero__pill, .hero__book { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* failsafe: never leave the above-the-fold hero invisible if animations don't run */
+  body.reveal-ready .hero__pill { opacity: 1; animation: none; transform: translateY(-50%) rotate(14deg); }
+  body.reveal-ready .hero__book { opacity: 1; animation: none; transform: rotate(-3deg); }
+  @media (max-width: 980px) {
+    body.reveal-ready .hero__pill { right: 50%; transform: translate(40%, -50%) rotate(14deg); }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px) {
+    .nav__links { display: none; }
+    .hero { padding-top: 100px; }
+    .hero__grid { grid-template-columns: 1fr; gap: 24px; }
+    .hero__visual { min-height: 420px; order: -1; }
+    .hero__pill { width: 240px; height: 440px; right: 50%; transform: translate(40%, -50%) rotate(14deg); }
+    .hero__book { width: 220px; }
+    .boek-grid, .sas-grid { grid-template-columns: 1fr; gap: 36px; }
+    .sas-photo { max-width: 420px; }
+    .leert-grid { grid-template-columns: 1fr 1fr; }
+    .footer { grid-template-columns: 1fr 1fr; }
+    .bestel__pill { display: none; }
+  }
+  @media (max-width: 560px) {
+    .formats { grid-template-columns: 1fr; }
+    .leert-grid { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr; }
+    .trust { font-size: 12px; gap: 10px 20px; }
+    .bestel__meta { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="nav">
+  <a class="brandmark" href="#top">
+    <span class="brandmark__pill"></span>
+    <span>Nooit Meer Slap</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="#boek">Het boek</a></li>
+    <li><a href="#voorwie">Voor wie</a></li>
+    <li><a href="#sas">Over Sas</a></li>
+    <li><a href="#faq">Vragen</a></li>
+    <li><a href="#pers">Pers</a></li>
+  </ul>
+  <a class="btn btn--yellow nav__cta" href="#bestellen">Bestel het boek</a>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="hero__rail">SEX MET SAS</div>
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Sas Steysiger &middot; ErectieCoach</p>
+      <h1>Nooit<br>meer<br>slap</h1>
+      <p class="hero__sub">Wat elke man moet weten over zijn erectie.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--yellow" href="#bestellen">Bestel het boek</a>
+        <a class="btn btn--ghost" href="#boek">Lees waar het over gaat</a>
+      </div>
+      <p class="hero__price" style="margin-top:24px;">Nu verkrijgbaar &nbsp;&middot;&nbsp; Paperback <b>&euro; 18,99</b> &nbsp;&middot;&nbsp; E-book <b>&euro; 13,99</b></p>
+      <div class="hero__meta">
+        <span>ISBN 9789493496033</span>
+        <span>Krummholz Uitgeverij</span>
+        <span>Paperback &amp; e-book</span>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__pill"></div>
+      <img class="hero__book" src="assets/book-cover-front.png" alt="Cover van het boek Nooit Meer Slap van Sas Steysiger">
+    </div>
+  </div>
+</header>
+
+<!-- ===================== TRUST STRIP ===================== -->
+<div class="trust">
+  <span>Verkrijgbaar bij</span>
+  <b>Bol</b><b>Libris</b><b>Boekenwereld</b><b>Paagman</b><b>Bruna</b><b>Amazon</b><b>Krummholz</b>
+</div>
+
+<!-- ===================== PULL QUOTE ===================== -->
+<section class="band band--blue">
+  <div class="wrap pullquote reveal">
+    <p>'Je mannelijkheid zit niet in hoe hard je erectie is, maar in hoe aanwezig je durft te zijn.'</p>
+    <div class="attr">Sas Steysiger &middot; uit Nooit Meer Slap</div>
+  </div>
+</section>
+
+<!-- ===================== HET BOEK ===================== -->
+<section class="band band--paper" id="boek">
+  <div class="wrap">
+    <div class="boek-grid">
+      <div class="boek-copy reveal">
+        <p class="eyebrow eyebrow--ink">Het boek</p>
+        <h2 class="section-title">Een wankelende<br>erectie is niet<br>alleen een probleem.<br>Het is een signaal.</h2>
+        <p>De mannen die bij Sas komen hebben &eacute;&eacute;n ding gemeen: ze leven vanuit hun hoofd. Altijd aan, altijd presteren, altijd d&oacute;&oacute;r. Hun lijf is iets dat moet functioneren, niet iets dat ze voelen.</p>
+        <p><em>Nooit meer slap</em> is de eerste lijfgerichte gids voor elke man die beter wil begrijpen hoe zijn lichaam, zijn erectie en intimiteit &eacute;cht werken. Voor elke man die verlangt naar meer vertrouwen in zijn eigen lichaam, naar betere seks met zijn partner.</p>
+      </div>
+      <div class="isnt-isit reveal">
+        <div class="ii-card">
+          <p class="ii-label">Wat het w&eacute;l is</p>
+          <p>Een praktische, lijfgerichte gids, met oefeningen voor alleen en samen.</p>
+        </div>
+        <div class="ii-card no">
+          <p class="ii-label">Wat het niet is</p>
+          <p>Geen medisch handboek.</p>
+        </div>
+        <div class="ii-card no">
+          <p class="ii-label">Wat het niet is</p>
+          <p>En zeker geen vaag zelfhulpboek.</p>
+        </div>
+        <div class="ii-card">
+          <p class="ii-label">De belofte</p>
+          <p>Meer vertrouwen in je eigen lijf, en betere seks met je partner.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VOOR WIE ===================== -->
+<section class="band band--blue" id="voorwie">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow reveal">Voor wie</p>
+    <h2 class="section-title reveal">Dit boek is voor<br>jou als&hellip;</h2>
+    <ul class="voorwie-list reveal">
+      <li><span class="vi-pill"></span><span>je vooral in je hoofd zit en moeilijk in je lijf landt.</span></li>
+      <li><span class="vi-pill"></span><span>je erectie je af en toe in de steek laat, en je niet weet waarom.</span></li>
+      <li><span class="vi-pill"></span><span>je klaar bent met presteren en weer wilt v&oacute;&eacute;len.</span></li>
+      <li><span class="vi-pill"></span><span>je verlangt naar meer vertrouwen in je eigen lichaam.</span></li>
+      <li><span class="vi-pill"></span><span>je samen met je partner aan betere, echtere seks wilt werken.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== WAT JE LEERT ===================== -->
+<section class="band band--white">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--ink reveal">Wat je leert</p>
+    <h2 class="section-title reveal">Vier inzichten,<br>&eacute;&eacute;n lichaam.</h2>
+    <div class="leert-grid">
+      <article class="leert-card reveal">
+        <div class="leert-num">01</div>
+        <h3>De erectie als signaal</h3>
+        <p>Wat je lichaam je probeert te vertellen, lang voordat het niet meer werkt.</p>
+      </article>
+      <article class="leert-card reveal">
+        <div class="leert-num">02</div>
+        <h3>Hoofd uit, lijf aan</h3>
+        <p>Hoe je uit de prestatiemodus stapt en weer voelt wat er onder de oppervlakte gebeurt.</p>
+      </article>
+      <article class="leert-card reveal">
+        <div class="leert-num">03</div>
+        <h3>Oefenen, alleen &amp; samen</h3>
+        <p>Praktische oefeningen om opnieuw te leren spelen, voelen en vertrouwen.</p>
+      </article>
+      <article class="leert-card reveal">
+        <div class="leert-num">04</div>
+        <h3>Aanwezig durven zijn</h3>
+        <p>Mannelijkheid voorbij prestatie: aanwezigheid als nieuwe maatstaf.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OVER SAS ===================== -->
+<section class="band band--paper" id="sas">
+  <div class="wrap">
+    <div class="sas-grid">
+      <div class="sas-photo reveal">
+        <img src="assets/sas-portret.jpg" alt="Portret van Sas Steysiger">
+        <div class="photo-cred">Foto: Luana Mooibroek</div>
+      </div>
+      <div class="sas-copy reveal">
+        <p class="eyebrow eyebrow--ink">Over de auteur</p>
+        <h2 class="section-title">De enige vrouw in<br>Nederland die werkt<br>als ErectieCoach.</h2>
+        <p>Vanuit haar praktijk in Den Haag en via online coaching begeleidt Sas Steysiger mannen bij erectieproblemen. Eerlijk, lijfgericht en zonder taboes: ze benoemt wat er speelt en landt altijd warm.</p>
+        <p>In dit boek bundelt ze die praktijk: geen theorie om de theorie, maar oefeningen en inzichten die je vandaag nog kunt gebruiken.</p>
+        <p class="callout">'Viagra opent je bloedvaten,<br>maar niet je hoofd.'</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BESTELLEN ===================== -->
+<section class="band band--blue bestel" id="bestellen">
+  <div class="bestel__pill"></div>
+  <div class="wrap">
+    <p class="eyebrow reveal">Bestellen</p>
+    <h2 class="section-title display reveal" style="font-size:clamp(48px,8vw,120px);">Bestel<br>het boek</h2>
+
+    <div class="formats reveal">
+      <div class="format-card">
+        <span class="fmt-label">Paperback</span>
+        <span class="fmt-price">&euro; 18,99</span>
+        <span class="fmt-note">Het fysieke boek, op je nachtkastje.</span>
+      </div>
+      <div class="format-card format-card--ebook">
+        <span class="fmt-label">E-book</span>
+        <span class="fmt-price">&euro; 13,99</span>
+        <span class="fmt-note">Lees het discreet op je e-reader, tablet of telefoon.</span>
+      </div>
+    </div>
+
+    <p class="bestel-sub reveal">Verkrijgbaar bij</p>
+    <ul class="retailers reveal">
+      <li class="is-link"><a href="https://www.bol.com/nl/nl/f/sex-met-sas-1-nooit-meer-slap/9300000254550330/" target="_blank" rel="noopener">Bol</a></li>
+      <li class="is-link"><a href="https://libris.nl/zoek?t=Nooit+meer+slap&a=Sas+Steysiger&us=false&exact=1&sk=Nooit%20meer%20slap" target="_blank" rel="noopener">Libris</a></li>
+      <li class="is-link"><a href="https://www.boekenwereld.com/sas-steysiger-nooit-meer-slap-9789493496033" target="_blank" rel="noopener">Boekenwereld</a></li>
+      <li class="is-link"><a href="https://www.paagman.nl/product/83643584/nooit-meer-slap-sex-met-sas-door-sas-steysiger" target="_blank" rel="noopener">Paagman</a></li>
+      <li class="is-link"><a href="https://www.bruna.nl/boeken/nooit-meer-slap-9789493496033" target="_blank" rel="noopener">Bruna</a></li>
+      <li class="is-link"><a href="https://www.amazon.nl/Nooit-meer-slap-weten-erectie-ebook/dp/B0GX2WJR5Z" target="_blank" rel="noopener">Amazon</a></li>
+      <li class="is-link"><a href="https://krummholz.be/shop/sex-met-sas-nooit-meer-slap/" target="_blank" rel="noopener">Krummholz</a></li>
+    </ul>
+
+    <div class="bestel__meta reveal">
+      <div><span class="lbl">Paperback</span><b>&euro; 18,99</b></div>
+      <div><span class="lbl">E-book</span><b>&euro; 13,99</b></div>
+      <div><span class="lbl">ISBN</span><b>9789493496033</b></div>
+      <div><span class="lbl">Uitgever</span><b>Krummholz</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="band band--white" id="faq">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow eyebrow--ink reveal">Veelgestelde vragen</p>
+    <h2 class="section-title reveal">Goed om te weten.</h2>
+    <div class="faq reveal">
+      <details>
+        <summary>Is dit een medisch boek?</summary>
+        <div class="faq-body"><p>Nee. <em>Nooit meer slap</em> is geen medisch handboek en geen vaag zelfhulpboek. Het is een lijfgerichte gids: praktische inzichten en oefeningen die je helpen je lichaam en je erectie beter te begrijpen.</p></div>
+      </details>
+      <details>
+        <summary>Voor wie is het bedoeld?</summary>
+        <div class="faq-body"><p>Voor elke man die beter wil begrijpen hoe zijn lichaam, zijn erectie en intimiteit werken, en die verlangt naar meer vertrouwen in zijn eigen lijf en betere seks met zijn partner.</p></div>
+      </details>
+      <details>
+        <summary>Kan ik het samen met mijn partner lezen?</summary>
+        <div class="faq-body"><p>Zeker. Het boek bevat oefeningen voor alleen &eacute;n samen. Veel koppels lezen het naast elkaar en doen de oefeningen gezamenlijk.</p></div>
+      </details>
+      <details>
+        <summary>Wie is Sas Steysiger?</summary>
+        <div class="faq-body"><p>Sas is de enige vrouw in Nederland die werkt als ErectieCoach. Vanuit haar praktijk in Den Haag en via online coaching begeleidt ze mannen bij erectieproblemen.</p></div>
+      </details>
+      <details>
+        <summary>Is er ook een e-book?</summary>
+        <div class="faq-body"><p>Ja. Naast de paperback (&euro; 18,99) is er een e-book (&euro; 13,99) dat je discreet leest op je e-reader, tablet of telefoon. Handig om altijd bij je te hebben.</p></div>
+      </details>
+      <details>
+        <summary>Waar kan ik het bestellen?</summary>
+        <div class="faq-body"><p>Bij Bol, Libris, Boekenwereld, Paagman, Bruna en Amazon, rechtstreeks bij Krummholz Uitgeverij, en bij je lokale boekhandel. Zowel de paperback als het e-book. Zie de bestelsectie hierboven.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PERS & MEDIA ===================== -->
+<section class="band band--ink" id="pers">
+  <div class="wrap wrap--narrow pers">
+    <div class="pers__pill"></div>
+    <p class="eyebrow reveal">Pers &amp; media</p>
+    <h2 class="section-title reveal">Interesse voor<br>een interview?</h2>
+    <p class="lead reveal" style="max-width:46ch;">Sas als spreker, Sas op de radio of tv? Of een interview over <em>Nooit meer slap</em>, mannelijkheid en intimiteit?</p>
+    <div class="pers__cta reveal">
+      <a class="btn btn--yellow" href="mailto:info@sassteysiger.nl?subject=Pers%20%26%20media%20%E2%80%93%20Nooit%20meer%20slap">Neem contact op</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="footer__col">
+    <a class="brandmark" href="#top"><span class="brandmark__pill"></span><span>Nooit Meer Slap</span></a>
+    <p style="margin-top:16px;">Een boek van Sas Steysiger, uitgegeven door Krummholz Uitgeverij. Den Haag, 2026.</p>
+  </div>
+  <div class="footer__col footer__col--logo">
+    <img src="assets/krummholz-logo.svg" alt="Krummholz Uitgeverij">
+  </div>
+  <div class="footer__bottom">
+    <span>&copy; 2026 Sas Steysiger &middot; Krummholz Uitgeverij</span>
+    <span>ISBN 9789493496033 &middot; #NooitMeerSlap &middot; #SexMetSas</span>
+  </div>
+</footer>
+
+<script>
+  // sticky nav background on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // stagger cards within a grid
+  document.querySelectorAll('.leert-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i * 90) + 'ms';
+  });
+
+  // scroll reveal
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // hero entrance failsafe: guarantee the hero is visible shortly after load
+  window.addEventListener('load', () => {
+    setTimeout(() => document.body.classList.add('reveal-ready'), 1400);
+  });
+</script>
+
+</body>
+</html>

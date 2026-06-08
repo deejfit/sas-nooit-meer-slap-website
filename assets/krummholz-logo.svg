@@ -1,0 +1,25 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 90" aria-label="Krummholz Uitgeverij">
+  <g fill="#FFFFFF">
+    
+    <g transform="translate(6,12)">
+      
+      <circle cx="14" cy="10" r="5"></circle>
+      
+      <path d="M14 16 L11 36 L18 36 L19 22 Z"></path>
+      
+      <path d="M11 36 L5 56 L9 56 L14 40 Z"></path>
+      <path d="M18 36 L22 56 L26 56 L20 40 Z"></path>
+      
+      <path d="M16 20 L34 12 L36 14 L18 24 Z"></path>
+      
+      <path d="M34 14 q4 -6 8 -2 q2 -6 6 -2 q3 -5 7 0 q4 -3 4 4 q-6 4 -12 2 q-7 2 -13 -2 z"></path>
+      
+      <rect x="30" y="14" width="2" height="42"></rect>
+    </g>
+    
+    <text x="78" y="42" font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="32" letter-spacing="0.5" fill="#FFFFFF">KRUMMHOLZ</text>
+    
+    <text x="78" y="68" font-family="Archivo Black, Helvetica, Arial, sans-serif" font-size="14" letter-spacing="3" fill="#FFFFFF">UITGEVERIJ</text>
+  </g>
+</svg>
