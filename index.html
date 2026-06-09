@@ -346,6 +346,41 @@
   .pers__mail:hover { border-color: var(--pil-geel); }
   @media (max-width: 980px) { .pers__pill { display: none; } }
 
+  /* ---------- gratis e-book ---------- */
+  .gratis { position: relative; }
+  .gratis__pill {
+    position: absolute; right: 0; top: clamp(80px, 10vw, 140px);
+    width: 120px; height: 280px; background: var(--pil-geel);
+    border-radius: var(--r-pill);
+    transform: rotate(45deg); transform-origin: right top; z-index: 0;
+  }
+  .gratis > * { position: relative; z-index: 1; }
+  .gratis .lead { margin-bottom: 28px; max-width: 48ch; }
+  .gratis__list { list-style: none; padding: 0; margin: 0 0 36px; display: grid; gap: 12px; }
+  .gratis__list li {
+    display: flex; gap: 14px; align-items: baseline;
+    font-size: clamp(17px, 1.7vw, 20px); font-weight: 500;
+  }
+  .gratis__list .gi-pill {
+    flex: none; width: 12px; height: 26px; background: var(--pil-geel);
+    border-radius: var(--r-pill); transform: rotate(18deg); margin-top: 2px;
+  }
+  .gratis small { display: block; margin-top: 18px; font-size: 13px; opacity: 0.72; }
+  @media (max-width: 980px) { .gratis__pill { display: none; } }
+
+  /* ---------- werken met sas ---------- */
+  .werken-list { list-style: none; padding: 0; margin: 28px 0 38px; display: grid; gap: 0; }
+  .werken-list li {
+    display: flex; gap: 16px; align-items: baseline;
+    padding: 18px 0; border-bottom: 1px solid rgba(0,0,0,0.12);
+    font-size: clamp(17px, 1.7vw, 21px); font-weight: 500;
+  }
+  .werken-list li:first-child { border-top: 1px solid rgba(0,0,0,0.12); }
+  .werken-list .wi-pill {
+    flex: none; width: 13px; height: 28px; background: var(--sas-blue);
+    border-radius: var(--r-pill); transform: rotate(18deg); margin-top: 2px;
+  }
+
   /* ---------- nieuwsbrief ---------- */
   .signup__form { display: flex; gap: 12px; margin-top: 30px; max-width: 540px; flex-wrap: wrap; }
   .signup__form input {
@@ -469,9 +504,11 @@
     <li><a href="#voorwie" data-ga-event="nav_voorwie">Voor wie</a></li>
     <li><a href="#sas" data-ga-event="nav_sas">Over Sas</a></li>
     <li><a href="#faq" data-ga-event="nav_vragen">Vragen</a></li>
+    <li><a href="#werken" data-ga-event="nav_werken">Werken met Sas</a></li>
     <li><a href="#pers" data-ga-event="nav_pers">Pers</a></li>
   </ul>
   <a class="btn btn--yellow nav__cta" href="#bestellen" data-ga-event="nav_bestel">Bestel het boek</a>
+  <a class="btn btn--ghost nav__cta" href="#gratis" data-ga-event="nav_gratis">Gratis e-book</a>
 </nav>
 
 <!-- ===================== HERO ===================== -->
@@ -650,6 +687,23 @@
   </div>
 </section>
 
+<!-- ===================== GRATIS E-BOOK ===================== -->
+<section class="band band--ink gratis" id="gratis">
+  <div class="gratis__pill"></div>
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow reveal">Gratis e-book</p>
+    <h2 class="section-title reveal">Liever eerst<br>gratis ontdekken?</h2>
+    <p class="lead reveal">Nieuwsgierig naar wat er nog meer in zit dan die ene, snelle manier? In het gratis e-book voor mannen ontdek je hoe je opwinding van binnenuit laat ontstaan: voelen in plaats van vluchten.</p>
+    <ul class="gratis__list reveal">
+      <li><span class="gi-pill"></span><span>Hoe je je seksuele energie activeert en versterkt.</span></li>
+      <li><span class="gi-pill"></span><span>Waarom veel mannen hun eigen lichaam nauwelijks kennen.</span></li>
+      <li><span class="gi-pill"></span><span>Praktische oefeningen, geen zweverig gedoe, om vandaag mee te starten.</span></li>
+    </ul>
+    <a class="btn btn--yellow reveal" href="https://sassteysiger.nl/ebook/" target="_blank" rel="noopener" data-ga-event="gratis_ebook">Download het gratis e-book</a>
+    <small class="reveal">Geen account nodig &middot; direct toegang &middot; 100% discreet</small>
+  </div>
+</section>
+
 <!-- ===================== FAQ ===================== -->
 <section class="band band--white" id="faq">
   <div class="wrap wrap--narrow">
@@ -681,6 +735,21 @@
         <div class="faq-body"><p>Bij Bol, Libris, Boekenwereld, Paagman, Bruna en Amazon, rechtstreeks bij Krummholz Uitgeverij, en bij je lokale boekhandel. Zowel de paperback als het e-book. Zie de bestelsectie hierboven.</p></div>
       </details>
     </div>
+  </div>
+</section>
+
+<!-- ===================== WERKEN MET SAS ===================== -->
+<section class="band band--paper" id="werken">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow eyebrow--ink reveal">Werken met Sas</p>
+    <h2 class="section-title reveal">Liever 1-op-1<br>met Sas werken?</h2>
+    <p class="lead reveal" style="max-width:56ch;">Erectieproblemen en pornoverslaving zijn nog altijd taboe, terwijl heel veel mannen ermee worstelen. Als Bodyworker en ErectieCoach begeleidt Sas je, stap voor stap, om uit je hoofd en terug in je lijf te komen.</p>
+    <ul class="werken-list reveal">
+      <li><span class="wi-pill"></span><span>Meer connectie tussen je hoofd en je lijf, en meer seksueel zelfvertrouwen.</span></li>
+      <li><span class="wi-pill"></span><span>Uit de prestatiemodus: minder piekeren, meer voelen en genieten.</span></li>
+      <li><span class="wi-pill"></span><span>1:1 Bodywork sessies in Den Haag, met 24/5 support tijdens je traject.</span></li>
+    </ul>
+    <a class="btn btn--ink reveal" href="https://sassteysiger.nl/erectiecoach/" target="_blank" rel="noopener" data-ga-event="werken_coaching">Lees meer over coaching met Sas</a>
   </div>
 </section>
 
